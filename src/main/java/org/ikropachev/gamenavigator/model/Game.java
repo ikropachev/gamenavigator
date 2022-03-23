@@ -1,4 +1,9 @@
 package org.ikropachev.gamenavigator.model;
 
-public class Game {
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "game")
+public class Game extends AbstractNamedEntity {
 }
