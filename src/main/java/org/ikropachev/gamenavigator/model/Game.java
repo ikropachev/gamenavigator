@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -30,6 +31,11 @@ public class Game extends AbstractNamedEntity {
         super(id, name);
         this.developer = developer;
         this.genres = genres;
+    }
+    //Constructor for tests with ignoring fields
+    public Game(Integer id, String name, String developer) {
+        super(id, name);
+        this.developer = developer;
     }
 
     public String getDeveloper() {

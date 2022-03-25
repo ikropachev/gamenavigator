@@ -21,6 +21,11 @@ public class Genre extends AbstractNamedEntity {
         this.games = games;
     }
 
+    //Constructor for tests with ignoring fields
+    public Genre(Integer id, String name) {
+        super(id, name);
+    }
+
     public List<Game> getGames() {
         return games;
     }

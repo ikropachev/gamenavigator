@@ -7,7 +7,8 @@ import java.util.List;
 import static org.ikropachev.gamenavigator.model.AbstractBaseEntity.START_SEQ;
 
 public class GameTestData {
-    public static final MatcherFactory.Matcher<Game> GAME_MATCHER = MatcherFactory.usingEqualsComparator(Game.class);
+    public static final MatcherFactory.Matcher<Game> GAME_MATCHER = MatcherFactory
+            .usingIgnoringFieldsComparator(Game.class, "genres");
 
     public static final int GAME_ID = START_SEQ + 8;
 
