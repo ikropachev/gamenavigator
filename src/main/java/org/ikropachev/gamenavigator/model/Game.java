@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiModelProperty;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -19,9 +18,9 @@ public class Game extends AbstractNamedEntity {
     protected String developer;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "game_x_genre",
-            joinColumns = @JoinColumn(name = "game_id"),
-            inverseJoinColumns = @JoinColumn(name = "genre_id"))
+    @JoinTable(name = "game_x_genres",
+            joinColumns = @JoinColumn(name = "game_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "genre_id", referencedColumnName = "id"))
     private List<Genre> genres;
 
     public Game() {
@@ -52,5 +51,10 @@ public class Game extends AbstractNamedEntity {
 
     public void setGenres(List<Genre> genres) {
         this.genres = genres;
+    }
+
+    public void addGenre(Genre genre) {
+        this.genres.add(genre);
+        genre.getGames().add(this);
     }
 }

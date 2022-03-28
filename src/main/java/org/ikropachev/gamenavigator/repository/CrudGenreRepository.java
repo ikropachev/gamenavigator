@@ -19,7 +19,7 @@ public interface CrudGenreRepository extends JpaRepository<Genre, Integer> {
     @Query("SELECT g FROM Genre g ORDER BY g.name")
     List<Genre> findAll();
 
-    List<Game> findGenresByGameId(Integer gameId);
+    //List<Game> findGenresByGameId(Integer gameId);
 
     @Modifying
     @Transactional

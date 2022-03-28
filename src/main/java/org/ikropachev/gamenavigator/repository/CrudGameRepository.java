@@ -18,7 +18,7 @@ public interface CrudGameRepository extends JpaRepository<Game, Integer> {
     @Query("SELECT g FROM Game g ORDER BY g.name")
     List<Game> findAll();
 
-    List<Game> findGamesByGenreId(Integer genreId);
+    //List<Game> findGamesByGenreId(Integer genreId);
 
     @Modifying
     @Transactional
