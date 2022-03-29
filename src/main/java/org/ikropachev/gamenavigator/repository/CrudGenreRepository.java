@@ -2,6 +2,7 @@ package org.ikropachev.gamenavigator.repository;
 
 import org.ikropachev.gamenavigator.model.Game;
 import org.ikropachev.gamenavigator.model.Genre;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -16,6 +17,7 @@ public interface CrudGenreRepository extends JpaRepository<Genre, Integer> {
     @Transactional
     Genre save(Genre genre);
 
+    //@EntityGraph(attributePaths = {"games"}, type = EntityGraph.EntityGraphType.LOAD)
     @Query("SELECT g FROM Genre g ORDER BY g.name")
     List<Genre> findAll();
 

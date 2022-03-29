@@ -1,6 +1,7 @@
 package org.ikropachev.gamenavigator.repository;
 
 import org.ikropachev.gamenavigator.model.Game;
+import org.ikropachev.gamenavigator.model.Genre;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -31,5 +32,9 @@ public class DataJpaGameRepository {
 
     public List<Game> getAll() {
         return crudGameRepository.findAll();
+    }
+
+    public List<Game> getAllByGenreId(Integer genreId) {
+        return crudGameRepository.findAllByGenreId(genreId);
     }
 }

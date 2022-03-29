@@ -33,4 +33,6 @@ public class DataJpaGenreRepository {
     public List<Genre> getAll() {
         return crudGenreRepository.findAll();
     }
+
+
 }

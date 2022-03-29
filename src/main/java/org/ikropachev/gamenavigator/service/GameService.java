@@ -1,6 +1,7 @@
 package org.ikropachev.gamenavigator.service;
 
 import org.ikropachev.gamenavigator.model.Game;
+import org.ikropachev.gamenavigator.model.Genre;
 import org.ikropachev.gamenavigator.repository.DataJpaGameRepository;
 import org.springframework.stereotype.Service;
 
@@ -36,5 +37,9 @@ public class GameService {
 
     public List<Game> getAll() {
         return repository.getAll();
+    }
+
+    public List<Game> getAllByGenreId(Integer genreId) {
+        return repository.getAllByGenreId(genreId);
     }
 }

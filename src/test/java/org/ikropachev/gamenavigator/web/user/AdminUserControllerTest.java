@@ -68,13 +68,13 @@ public class AdminUserControllerTest extends AbstractControllerTest {
 
     @Test
     void deleteNotFound() throws Exception {
-        /*
+
         perform(MockMvcRequestBuilders.delete(REST_URL + NOT_FOUND)
                 .with(userHttpBasic(admin)))
-                .andDo(print())
+                //.andDo(print())
                 .andExpect(status().isUnprocessableEntity());
-         */
-        assertThrows(NotFoundException.class, () -> service.delete(NOT_FOUND));
+
+        //assertThrows(NotFoundException.class, () -> service.delete(NOT_FOUND));
     }
 
     @Test
