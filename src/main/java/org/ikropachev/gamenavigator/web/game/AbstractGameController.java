@@ -30,4 +30,9 @@ public class AbstractGameController {
         log.info("get all games by genre {}", genreId);
         return service.getAllByGenreId(genreId);
     }
+
+    public List<Game> getAllByGenre(Genre genre) {
+        log.info("get all games by genre {}", genre);
+        return service.getAllByGenre(genre);
+    }
 }

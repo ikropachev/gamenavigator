@@ -42,4 +42,8 @@ public class GameService {
     public List<Game> getAllByGenreId(Integer genreId) {
         return repository.getAllByGenreId(genreId);
     }
+
+    public List<Game> getAllByGenre(Genre genre) {
+        return repository.getAllByGenre(genre);
+    }
 }

@@ -21,8 +21,12 @@ public interface CrudGameRepository extends JpaRepository<Game, Integer> {
     @Query("SELECT g FROM Game g ORDER BY g.name")
     List<Game> findAll();
 
-    @Query("SELECT g FROM Game g JOIN Genre ge WHERE ge.id = :genreId")
+    //https://www.codejava.net/frameworks/spring/jpa-join-query-for-like-search-examples
+    @Query("SELECT g FROM Game g JOIN g.genres ge WHERE ge.id =:genreId")
     List<Game> findAllByGenreId(@Param("genreId") Integer genreId);
+
+    @Query("select g from Game g where g.genres in ?1")
+    List<Game> findAllByGenre(Genre genre);
 
     @Modifying
     @Transactional
