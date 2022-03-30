@@ -22,10 +22,6 @@ public class DataJpaGameRepository {
         return crudGameRepository.save(game);
     }
 
-    public boolean delete(int id) {
-        return crudGameRepository.delete(id) != 0;
-    }
-
     public Game get(int id) {
         return crudGameRepository.findById(id).orElse(null);
     }
@@ -38,7 +34,13 @@ public class DataJpaGameRepository {
         return crudGameRepository.findAllByGenreId(genreId);
     }
 
+    public boolean delete(int id) {
+        return crudGameRepository.delete(id) != 0;
+    }
+
+    /*
     public List<Game> getAllByGenre(Genre genre) {
         return crudGameRepository.findAllByGenre(genre);
     }
+     */
 }

@@ -20,10 +20,6 @@ public class DataJpaUserRepository {
         return crudRepository.save(user);
     }
 
-    public boolean delete(int id) {
-        return crudRepository.delete(id) != 0;
-    }
-
     public User get(int id) {
         return crudRepository.findById(id).orElse(null);
     }
@@ -34,5 +30,9 @@ public class DataJpaUserRepository {
 
     public List<User> getAll() {
         return crudRepository.findAll(SORT_NAME_EMAIL);
+    }
+
+    public boolean delete(int id) {
+        return crudRepository.delete(id) != 0;
     }
 }

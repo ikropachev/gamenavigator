@@ -16,6 +16,7 @@ import static org.ikropachev.gamenavigator.GenreTestData.GENRE_ID;
 import static org.ikropachev.gamenavigator.TestUtil.userHttpBasic;
 import static org.ikropachev.gamenavigator.UserTestData.admin;
 import static org.ikropachev.gamenavigator.model.AbstractBaseEntity.NOT_FOUND;
+import static org.ikropachev.gamenavigator.web.game.AdminGameController.GENRE_NAME;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -59,11 +60,15 @@ public class AdminGameControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    void getNotFound() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + NOT_FOUND)
-                .with(userHttpBasic(admin)))
-                .andDo(print())
-                .andExpect(status().isUnprocessableEntity());
+    void getNotFound() {
+        try {
+            perform(MockMvcRequestBuilders.get(REST_URL + NOT_FOUND)
+                    .with(userHttpBasic(admin)))
+                    .andDo(print())
+                    .andExpect(status().isNotFound());
+        } catch (Exception e) {
+            assertThrows(NotFoundException.class, () -> service.get(NOT_FOUND));
+        }
     }
 
     @Test
@@ -85,29 +90,42 @@ public class AdminGameControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    void getAllByGenre() throws Exception {
+        perform(MockMvcRequestBuilders.get(REST_URL + "by-genre?genre=" + GENRE_NAME)
+                .with(userHttpBasic(admin)))
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(GAME_MATCHER.contentJson(game1, game2));
+    }
+
+    @Test
     void update() throws Exception {
         Game updated = getUpdated();
         perform(MockMvcRequestBuilders.put(REST_URL + GAME_ID)
                 .contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(admin))
                 .content(JsonUtil.writeValue(updated)))
-                .andExpect(status().isOk());
+                .andExpect(status().isNoContent());
 
         GAME_MATCHER.assertMatch(service.get(GAME_ID), updated);
     }
 
     @Test
     void delete() throws Exception {
-        perform(MockMvcRequestBuilders.delete(REST_URL + "/games/" + GAME_ID)
+        perform(MockMvcRequestBuilders.delete(REST_URL + GAME_ID)
                 .with(userHttpBasic(admin)))
                 .andExpect(status().isNoContent());
         assertThrows(NotFoundException.class, () -> service.get(GAME_ID));
     }
 
     @Test
-    void deleteNotFound() throws Exception {
-        perform(MockMvcRequestBuilders.delete(REST_URL + "/games/" + NOT_FOUND)
-                .with(userHttpBasic(admin)))
-                .andExpect(status().isUnprocessableEntity());
+    void deleteNotFound() {
+        try {
+            perform(MockMvcRequestBuilders.delete(REST_URL + NOT_FOUND)
+                    .with(userHttpBasic(admin)))
+                    .andExpect(status().isUnprocessableEntity());
+        } catch (Exception e) {
+            assertThrows(NotFoundException.class, () -> service.get(NOT_FOUND));
+        }
     }
 }

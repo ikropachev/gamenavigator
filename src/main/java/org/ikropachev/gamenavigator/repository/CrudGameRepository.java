@@ -25,8 +25,8 @@ public interface CrudGameRepository extends JpaRepository<Game, Integer> {
     @Query("SELECT g FROM Game g JOIN g.genres ge WHERE ge.id =:genreId")
     List<Game> findAllByGenreId(@Param("genreId") Integer genreId);
 
-    @Query("select g from Game g where g.genres in ?1")
-    List<Game> findAllByGenre(Genre genre);
+    //@Query("select g from Game g where g.genres in ?1")
+    //List<Game> findAllByGenre(Genre genre);
 
     @Modifying
     @Transactional

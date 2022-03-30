@@ -17,6 +17,9 @@ public interface CrudGenreRepository extends JpaRepository<Genre, Integer> {
     @Transactional
     Genre save(Genre genre);
 
+    @Query("SELECT g FROM Genre g WHERE g.name=:name")
+    Genre findByName(@Param("name") String name);
+
     //@EntityGraph(attributePaths = {"games"}, type = EntityGraph.EntityGraphType.LOAD)
     @Query("SELECT g FROM Genre g ORDER BY g.name")
     List<Genre> findAll();

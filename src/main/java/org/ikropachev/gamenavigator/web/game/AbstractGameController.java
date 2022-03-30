@@ -7,11 +7,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public class AbstractGameController {
     protected final Logger log = LoggerFactory.getLogger(getClass());
+    public static final String GAME_ID_STR = "100008";
 
     @Autowired
     private GameService service;
@@ -31,8 +31,10 @@ public class AbstractGameController {
         return service.getAllByGenreId(genreId);
     }
 
+    /*
     public List<Game> getAllByGenre(Genre genre) {
         log.info("get all games by genre {}", genre);
         return service.getAllByGenre(genre);
     }
+     */
 }

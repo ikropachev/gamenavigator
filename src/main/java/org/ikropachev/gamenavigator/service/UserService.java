@@ -35,9 +35,13 @@ public class UserService implements UserDetailsService {
         return repository.save(user);
     }
 
-    @CacheEvict(value = "users", allEntries = true)
-    public void delete(int id) {
-        checkNotFoundWithId(repository.delete(id), id);
+    @Override
+    public AuthorizedUser loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = repository.getByEmail(email.toLowerCase());
+        if (user == null) {
+            throw new UsernameNotFoundException("User " + email + " is not found");
+        }
+        return new AuthorizedUser(user);
     }
 
     public User get(int id) {
@@ -75,12 +79,8 @@ public class UserService implements UserDetailsService {
         repository.save(user);  // !! need only for JDBC implementation
     }
 
-    @Override
-    public AuthorizedUser loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = repository.getByEmail(email.toLowerCase());
-        if (user == null) {
-            throw new UsernameNotFoundException("User " + email + " is not found");
-        }
-        return new AuthorizedUser(user);
+    @CacheEvict(value = "users", allEntries = true)
+    public void delete(int id) {
+        checkNotFoundWithId(repository.delete(id), id);
     }
 }

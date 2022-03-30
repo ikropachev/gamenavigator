@@ -10,6 +10,8 @@ import java.util.List;
 @Entity
 @Table(name = "game")
 public class Game extends AbstractNamedEntity {
+    private static final String GENRE_LIST_STR = "[\n{\n\"id\": 100004,\n\"name\": \"action\"\n},\n" +
+            "    {\n\"id\": 100006,\n\"name\": \"adventure\"\n}\n]";
 
     @NotBlank
     @Size(min = 2, max = 100)
@@ -21,6 +23,7 @@ public class Game extends AbstractNamedEntity {
     @JoinTable(name = "game_x_genres",
             joinColumns = @JoinColumn(name = "game_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id", referencedColumnName = "id"))
+    @ApiModelProperty(position = 3, example = GENRE_LIST_STR)
     private List<Genre> genres;
 
     public Game() {

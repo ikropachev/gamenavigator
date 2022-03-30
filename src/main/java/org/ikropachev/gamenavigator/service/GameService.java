@@ -23,14 +23,6 @@ public class GameService {
         return repository.save(game);
     }
 
-    public void update(Game game) {
-        checkNotFoundWithId(repository.save(game), game.getId());
-    }
-
-    public void delete(int id) {
-        checkNotFoundWithId(repository.delete(id), id);
-    }
-
     public Game get(int id) {
         return checkNotFoundWithId(repository.get(id), id);
     }
@@ -43,7 +35,17 @@ public class GameService {
         return repository.getAllByGenreId(genreId);
     }
 
+    public void update(Game game) {
+        checkNotFoundWithId(repository.save(game), game.getId());
+    }
+
+    public void delete(int id) {
+        checkNotFoundWithId(repository.delete(id), id);
+    }
+
+    /*
     public List<Game> getAllByGenre(Genre genre) {
         return repository.getAllByGenre(genre);
     }
+     */
 }

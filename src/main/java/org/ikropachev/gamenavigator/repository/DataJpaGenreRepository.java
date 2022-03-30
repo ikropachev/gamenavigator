@@ -22,17 +22,19 @@ public class DataJpaGenreRepository {
         return crudGenreRepository.save(genre);
     }
 
-    public boolean delete(int id) {
-        return crudGenreRepository.delete(id) != 0;
-    }
-
     public Genre get(int id) {
         return crudGenreRepository.findById(id).orElse(null);
+    }
+
+    public Genre get(String name) {
+        return crudGenreRepository.findByName(name);
     }
 
     public List<Genre> getAll() {
         return crudGenreRepository.findAll();
     }
 
-
+    public boolean delete(int id) {
+        return crudGenreRepository.delete(id) != 0;
+    }
 }

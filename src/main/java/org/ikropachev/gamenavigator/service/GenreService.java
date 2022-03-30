@@ -24,19 +24,21 @@ public class GenreService {
         return repository.save(genre);
     }
 
+    public Genre get(int id) {
+        return checkNotFoundWithId(repository.get(id), id);
+    }
+
+    public Genre get(String name) {return repository.get(name);}
+
+    public List<Genre> getAll() {
+        return repository.getAll();
+    }
+
     public void update(Genre genre) {
         checkNotFoundWithId(repository.save(genre), genre.getId());
     }
 
     public void delete(int id) {
         checkNotFoundWithId(repository.delete(id), id);
-    }
-
-    public Genre get(int id) {
-        return checkNotFoundWithId(repository.get(id), id);
-    }
-
-    public List<Genre> getAll() {
-        return repository.getAll();
     }
 }
