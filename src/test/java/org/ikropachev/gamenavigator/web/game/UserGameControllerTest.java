@@ -16,14 +16,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class UserGameControllerTest extends AbstractControllerTest {
-    private static final String REST_URL = UserGameController.REST_URL;
+    private static final String REST_URL = UserGameController.REST_URL + "/";
 
     //@Autowired
     //private GameService service;
 
     @Test
     void getAll() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + "/games")
+        perform(MockMvcRequestBuilders.get(REST_URL)
                 .with(userHttpBasic(user1)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -33,7 +33,7 @@ public class UserGameControllerTest extends AbstractControllerTest {
     @Test
     void getAllByGenre() throws Exception {
         perform(MockMvcRequestBuilders.get(REST_URL + "by-genre?genre=" + GENRE_NAME)
-                .with(userHttpBasic(admin)))
+                .with(userHttpBasic(user1)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(GAME_MATCHER.contentJson(game1, game2));

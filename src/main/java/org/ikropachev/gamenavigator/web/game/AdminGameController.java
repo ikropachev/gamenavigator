@@ -36,11 +36,11 @@ public class AdminGameController extends AbstractGameController {
     static final String REST_URL = "/rest/admin/games";
     public static final String GENRE_NAME = "action";
 
-    @Autowired
-    private GameService service;
+    //@Autowired
+    //private GameService service;
 
-    @Autowired
-    private GenreService genreService;
+    //@Autowired
+    //private GenreService genreService;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Create a game")

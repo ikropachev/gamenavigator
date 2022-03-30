@@ -3,6 +3,7 @@ package org.ikropachev.gamenavigator.web.game;
 import org.ikropachev.gamenavigator.model.Game;
 import org.ikropachev.gamenavigator.model.Genre;
 import org.ikropachev.gamenavigator.service.GameService;
+import org.ikropachev.gamenavigator.service.GenreService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,10 @@ public class AbstractGameController {
     public static final String GAME_ID_STR = "100008";
 
     @Autowired
-    private GameService service;
+    protected GameService service;
+
+    @Autowired
+    protected GenreService genreService;
 
     public Game get(int id) {
         log.info("get game with id {}", id);
