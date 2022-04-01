@@ -9,8 +9,9 @@ import java.util.List;
 @Table(name = "genres")
 public class Genre extends AbstractNamedEntity {
 
+    //https://stackoverflow.com/questions/13370221/persistentobjectexception-detached-entity-passed-to-persist-thrown-by-jpa-and-h
     @ManyToMany(fetch = FetchType.LAZY, cascade = {
-            CascadeType.PERSIST,
+            //CascadeType.PERSIST,
             CascadeType.MERGE
     }, mappedBy = "genres")
     @JsonIgnore
