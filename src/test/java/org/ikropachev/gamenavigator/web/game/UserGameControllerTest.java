@@ -28,8 +28,8 @@ public class UserGameControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    void getAllByGenre() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + "by-genre?genre=" + GENRE_NAME)
+    void getAllByGenreName() throws Exception {
+        perform(MockMvcRequestBuilders.get(REST_URL + "by-genre-name?genre-name=" + GENRE_NAME)
                 .with(userHttpBasic(user1)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
