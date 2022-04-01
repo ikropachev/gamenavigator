@@ -1,7 +1,9 @@
 package org.ikropachev.gamenavigator;
 
 import org.ikropachev.gamenavigator.model.Game;
+import org.ikropachev.gamenavigator.model.Genre;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.ikropachev.gamenavigator.model.AbstractBaseEntity.START_SEQ;
@@ -21,7 +23,7 @@ public class GameTestData {
     public static final List<Game> games = List.of(game1, game2, game4, game3);
 
     public static Game getNew() {
-        return new Game(null, "New_Game", "New_Game_Developer");
+        return new Game(null, "New_Game", "New_Game_Developer", Arrays.asList( new Genre(100004, "action"), new Genre(100006, "adventure")));
     }
 
     public static Game getUpdated() {

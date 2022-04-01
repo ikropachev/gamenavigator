@@ -37,4 +37,12 @@ public class Genre extends AbstractNamedEntity {
     public void setGames(List<Game> games) {
         this.games = games;
     }
+
+    @Override
+    public String toString() {
+        return "Genre{" +
+                "id=" + id +
+                ", name='" + name +
+                '}';
+    }
 }

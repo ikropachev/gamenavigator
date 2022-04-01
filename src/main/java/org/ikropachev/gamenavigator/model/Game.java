@@ -64,4 +64,14 @@ public class Game extends AbstractNamedEntity {
         this.genres.add(genre);
         genre.getGames().add(this);
     }
+
+    @Override
+    public String toString() {
+        return "Game{" +
+                "id=" + id +
+                ", name=" + name +
+                ", developer=" + developer +
+                ", genres=" + genres +
+                '}';
+    }
 }

@@ -6,6 +6,7 @@ import org.ikropachev.gamenavigator.util.exception.NotFoundException;
 import org.ikropachev.gamenavigator.web.AbstractControllerTest;
 import org.ikropachev.gamenavigator.web.json.JsonUtil;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
@@ -18,11 +19,14 @@ import static org.ikropachev.gamenavigator.UserTestData.admin;
 import static org.ikropachev.gamenavigator.model.AbstractBaseEntity.NOT_FOUND;
 import static org.ikropachev.gamenavigator.web.game.AdminGameController.GENRE_NAME;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.slf4j.LoggerFactory.getLogger;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class AdminGameControllerTest extends AbstractControllerTest {
+    private static final Logger log = getLogger(AdminGameControllerTest.class);
+
     private static final String REST_URL = AdminGameController.REST_URL + "/";
 
     @Autowired
@@ -31,6 +35,7 @@ public class AdminGameControllerTest extends AbstractControllerTest {
     @Test
     void createWithLocation() throws Exception {
         Game newGame = getNew();
+        log.info("get new test game {}", newGame);
         ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(admin))
