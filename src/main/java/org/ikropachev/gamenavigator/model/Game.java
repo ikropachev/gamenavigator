@@ -34,6 +34,7 @@ public class Game extends AbstractNamedEntity {
         this.developer = developer;
         this.genres = genres;
     }
+
     //Constructor for tests with ignoring fields
     public Game(Integer id, String name, String developer) {
         super(id, name);

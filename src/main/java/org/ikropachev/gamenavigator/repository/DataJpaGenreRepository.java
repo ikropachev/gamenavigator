@@ -1,6 +1,5 @@
 package org.ikropachev.gamenavigator.repository;
 
-import org.ikropachev.gamenavigator.model.Game;
 import org.ikropachev.gamenavigator.model.Genre;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

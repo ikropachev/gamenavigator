@@ -1,7 +1,6 @@
 package org.ikropachev.gamenavigator.service;
 
 import org.ikropachev.gamenavigator.model.Game;
-import org.ikropachev.gamenavigator.model.Genre;
 import org.ikropachev.gamenavigator.repository.DataJpaGameRepository;
 import org.springframework.stereotype.Service;
 
@@ -42,10 +41,4 @@ public class GameService {
     public void delete(int id) {
         checkNotFoundWithId(repository.delete(id), id);
     }
-
-    /*
-    public List<Game> getAllByGenre(Genre genre) {
-        return repository.getAllByGenre(genre);
-    }
-     */
 }

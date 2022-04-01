@@ -6,11 +6,7 @@ import io.swagger.annotations.ApiParam;
 import org.ikropachev.gamenavigator.View;
 import org.ikropachev.gamenavigator.model.Game;
 import org.ikropachev.gamenavigator.model.Genre;
-import org.ikropachev.gamenavigator.service.GameService;
-import org.ikropachev.gamenavigator.service.GenreService;
 import org.slf4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -19,9 +15,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.awt.*;
 import java.net.URI;
-import java.time.LocalDate;
 import java.util.List;
 
 import static org.ikropachev.gamenavigator.web.genre.AdminGenreController.GENRE_ID_STR;
@@ -35,12 +29,6 @@ public class AdminGameController extends AbstractGameController {
 
     static final String REST_URL = "/rest/admin/games";
     public static final String GENRE_NAME = "action";
-
-    //@Autowired
-    //private GameService service;
-
-    //@Autowired
-    //private GenreService genreService;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Create a game")

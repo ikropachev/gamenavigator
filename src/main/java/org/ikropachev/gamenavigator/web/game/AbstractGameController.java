@@ -1,7 +1,6 @@
 package org.ikropachev.gamenavigator.web.game;
 
 import org.ikropachev.gamenavigator.model.Game;
-import org.ikropachev.gamenavigator.model.Genre;
 import org.ikropachev.gamenavigator.service.GameService;
 import org.ikropachev.gamenavigator.service.GenreService;
 import org.slf4j.Logger;
@@ -34,11 +33,4 @@ public class AbstractGameController {
         log.info("get all games by genre {}", genreId);
         return service.getAllByGenreId(genreId);
     }
-
-    /*
-    public List<Game> getAllByGenre(Genre genre) {
-        log.info("get all games by genre {}", genre);
-        return service.getAllByGenre(genre);
-    }
-     */
 }
