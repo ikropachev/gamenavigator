@@ -26,6 +26,22 @@ public class AdminUserControllerTest extends AbstractControllerTest {
     private UserService service;
 
     @Test
+    void createWithLocation() throws Exception {
+        User newUser = getNew();
+        ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL)
+                .contentType(MediaType.APPLICATION_JSON)
+                .with(userHttpBasic(admin))
+                .content(jsonWithPassword(newUser, newUser.getPassword())))
+                .andExpect(status().isCreated());
+
+        User created = USER_MATCHER.readFromJson(action);
+        int newId = created.id();
+        newUser.setId(newId);
+        USER_MATCHER.assertMatch(created, newUser);
+        USER_MATCHER.assertMatch(service.get(newId), newUser);
+    }
+
+    @Test
     void get() throws Exception {
         perform(MockMvcRequestBuilders.get(REST_URL + ADMIN_ID)
                 .with(userHttpBasic(admin)))
@@ -58,6 +74,52 @@ public class AdminUserControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    void getUnAuth() throws Exception {
+        perform(MockMvcRequestBuilders.get(REST_URL))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    void getForbidden() throws Exception {
+        perform(MockMvcRequestBuilders.get(REST_URL)
+                .with(userHttpBasic(user1)))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    void getAll() throws Exception {
+        perform(MockMvcRequestBuilders.get(REST_URL)
+                .with(userHttpBasic(admin)))
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(USER_MATCHER.contentJson(users));
+    }
+
+    @Test
+    void update() throws Exception {
+        User updated = getUpdated();
+        perform(MockMvcRequestBuilders.put(REST_URL + USER_ID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .with(userHttpBasic(admin))
+                .content(jsonWithPassword(updated, updated.getPassword())))
+                .andExpect(status().isNoContent());
+
+        USER_MATCHER.assertMatch(service.get(USER_ID), updated);
+    }
+
+    @Test
+    void enable() throws Exception {
+        perform(MockMvcRequestBuilders.patch(REST_URL + USER_ID)
+                .param("enabled", "false")
+                .contentType(MediaType.APPLICATION_JSON)
+                .with(userHttpBasic(admin)))
+                .andDo(print())
+                .andExpect(status().isNoContent());
+
+        assertFalse(service.get(USER_ID).isEnabled());
+    }
+
+    @Test
     void delete() throws Exception {
         perform(MockMvcRequestBuilders.delete(REST_URL + USER_ID)
                 .with(userHttpBasic(admin)))
@@ -76,67 +138,5 @@ public class AdminUserControllerTest extends AbstractControllerTest {
         } catch (Exception e) {
             assertThrows(NotFoundException.class, () -> service.get(NOT_FOUND));
         }
-    }
-
-    @Test
-    void getUnAuth() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL))
-                .andExpect(status().isUnauthorized());
-    }
-
-    @Test
-    void getForbidden() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL)
-                .with(userHttpBasic(user1)))
-                .andExpect(status().isForbidden());
-    }
-
-    @Test
-    void update() throws Exception {
-        User updated = getUpdated();
-        perform(MockMvcRequestBuilders.put(REST_URL + USER_ID)
-                .contentType(MediaType.APPLICATION_JSON)
-                .with(userHttpBasic(admin))
-                .content(jsonWithPassword(updated, updated.getPassword())))
-                .andExpect(status().isNoContent());
-
-        USER_MATCHER.assertMatch(service.get(USER_ID), updated);
-    }
-
-    @Test
-    void createWithLocation() throws Exception {
-        User newUser = getNew();
-        ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL)
-                .contentType(MediaType.APPLICATION_JSON)
-                .with(userHttpBasic(admin))
-                .content(jsonWithPassword(newUser, newUser.getPassword())))
-                .andExpect(status().isCreated());
-
-        User created = USER_MATCHER.readFromJson(action);
-        int newId = created.id();
-        newUser.setId(newId);
-        USER_MATCHER.assertMatch(created, newUser);
-        USER_MATCHER.assertMatch(service.get(newId), newUser);
-    }
-
-    @Test
-    void getAll() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL)
-                .with(userHttpBasic(admin)))
-                .andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(USER_MATCHER.contentJson(users));
-    }
-
-    @Test
-    void enable() throws Exception {
-        perform(MockMvcRequestBuilders.patch(REST_URL + USER_ID)
-                .param("enabled", "false")
-                .contentType(MediaType.APPLICATION_JSON)
-                .with(userHttpBasic(admin)))
-                .andDo(print())
-                .andExpect(status().isNoContent());
-
-        assertFalse(service.get(USER_ID).isEnabled());
     }
 }

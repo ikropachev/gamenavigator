@@ -25,29 +25,6 @@ public class ProfileRestControllerTest extends AbstractControllerTest {
     private UserService service;
 
     @Test
-    void get() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL)
-                .with(userHttpBasic(user1)))
-                .andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(USER_MATCHER.contentJson(user1));
-    }
-
-    @Test
-    void getUnAuth() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL))
-                .andExpect(status().isUnauthorized());
-    }
-
-    @Test
-    void delete() throws Exception {
-        perform(MockMvcRequestBuilders.delete(REST_URL)
-                .with(userHttpBasic(user1)))
-                .andExpect(status().isNoContent());
-        USER_MATCHER.assertMatch(service.getAll(), admin, user2, user3);
-    }
-
-    @Test
     void register() throws Exception {
         UserTo newTo = new UserTo(null, "New_Test_User", "new-test-email@gmail.com", "NewTestPassword");
         User newUser = UserUtil.createNewFromTo(newTo);
@@ -65,6 +42,21 @@ public class ProfileRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    void get() throws Exception {
+        perform(MockMvcRequestBuilders.get(REST_URL)
+                .with(userHttpBasic(user1)))
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(USER_MATCHER.contentJson(user1));
+    }
+
+    @Test
+    void getUnAuth() throws Exception {
+        perform(MockMvcRequestBuilders.get(REST_URL))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
     void update() throws Exception {
         UserTo updatedTo = new UserTo(null, "New_Test_User", "new-test-email@gmail.com", "NewTestPassword");
         perform(MockMvcRequestBuilders.put(REST_URL).contentType(MediaType.APPLICATION_JSON)
@@ -74,5 +66,13 @@ public class ProfileRestControllerTest extends AbstractControllerTest {
                 .andExpect(status().isNoContent());
 
         USER_MATCHER.assertMatch(service.get(USER_ID), UserUtil.updateFromTo(new User(user1), updatedTo));
+    }
+
+    @Test
+    void delete() throws Exception {
+        perform(MockMvcRequestBuilders.delete(REST_URL)
+                .with(userHttpBasic(user1)))
+                .andExpect(status().isNoContent());
+        USER_MATCHER.assertMatch(service.getAll(), admin, user2, user3);
     }
 }
