@@ -7,6 +7,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.List;
 
+//https://www.bezkoder.com/jpa-many-to-many/
 @Entity
 @Table(name = "game")
 public class Game extends AbstractNamedEntity {
@@ -63,6 +64,12 @@ public class Game extends AbstractNamedEntity {
     public void addGenre(Genre genre) {
         this.genres.add(genre);
         genre.getGames().add(this);
+    }
+
+    public void removeGenre(Integer genreId) {
+        Genre genre = this.genres.stream().filter(g -> g.getId() == genreId).findFirst().orElse(null);
+        if (genre != null) this.genres.remove(genre);
+        genre.getGames().remove(this);
     }
 
     @Override
