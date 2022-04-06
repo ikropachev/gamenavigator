@@ -5,7 +5,9 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.ikropachev.gamenavigator.View;
 import org.ikropachev.gamenavigator.model.Genre;
+import org.ikropachev.gamenavigator.service.GameService;
 import org.ikropachev.gamenavigator.service.GenreService;
+import org.ikropachev.gamenavigator.util.exception.NotFoundException;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,6 +34,9 @@ public class AdminGenreController {
     @Autowired
     private GenreService service;
 
+    @Autowired
+    private GameService gameService;
+
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Create a genre")
     public ResponseEntity<Genre> createWithLocation(@Validated(View.Web.class) @RequestBody Genre genre) {
@@ -55,6 +60,15 @@ public class AdminGenreController {
     public List<Genre> getAll() {
         log.info("get all genres");
         return service.getAll();
+    }
+
+    @GetMapping("/tutorials/{tutorialId}/tags")
+    public ResponseEntity<List<Genre>> getAllGenresByGameId(@PathVariable(value = "gameId") Integer gameId) {
+        if (gameService.get(gameId)==null) {
+            throw new NotFoundException("Not found Game with id = " + gameId);
+        }
+        List<Genre> genres = service.getGenresByGameId(gameId);
+        return new ResponseEntity<>(genres, HttpStatus.OK);
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
