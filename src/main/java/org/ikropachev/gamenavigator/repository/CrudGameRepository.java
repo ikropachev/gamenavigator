@@ -14,6 +14,7 @@ import java.util.List;
 public interface CrudGameRepository extends JpaRepository<Game, Integer> {
     @Override
     @Transactional
+    //@EntityGraph(attributePaths = {"genres"}, type = EntityGraph.EntityGraphType.LOAD)
     Game save(Game game);
 
     @EntityGraph(attributePaths = {"genres"}, type = EntityGraph.EntityGraphType.LOAD)

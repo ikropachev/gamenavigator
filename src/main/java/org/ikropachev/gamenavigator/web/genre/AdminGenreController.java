@@ -4,6 +4,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.ikropachev.gamenavigator.View;
+import org.ikropachev.gamenavigator.model.Game;
 import org.ikropachev.gamenavigator.model.Genre;
 import org.ikropachev.gamenavigator.service.GameService;
 import org.ikropachev.gamenavigator.service.GenreService;
@@ -46,6 +47,16 @@ public class AdminGenreController {
                 .path(REST_URL + "/{id}")
                 .buildAndExpand(created.getId()).toUri();
         return ResponseEntity.created(uriOfNewResource).body(created);
+    }
+
+    @PostMapping("/games/{gameId}/genres")
+    public ResponseEntity<Genre> addGenre(@PathVariable(value = "gameId") Integer gameId, @RequestBody Genre genreRequest) {
+        Integer genreId = genreRequest.getId();
+        Game game = gameService.get(gameId);
+        Genre genre = service.get(genreId);
+        game.addGenre(genre);
+        gameService.update(game);
+        return new ResponseEntity<>(genre, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")

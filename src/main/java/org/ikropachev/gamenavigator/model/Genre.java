@@ -10,7 +10,7 @@ import java.util.List;
 public class Genre extends AbstractNamedEntity {
 
     //https://stackoverflow.com/questions/13370221/persistentobjectexception-detached-entity-passed-to-persist-thrown-by-jpa-and-h
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {
             //CascadeType.PERSIST,
             CascadeType.MERGE
     }, mappedBy = "genres")
