@@ -62,7 +62,7 @@ public class AdminGenreController {
         return service.getAll();
     }
 
-    @GetMapping("/tutorials/{tutorialId}/tags")
+    @GetMapping("/games/{gameId}/genres")
     public ResponseEntity<List<Genre>> getAllGenresByGameId(@PathVariable(value = "gameId") Integer gameId) {
         if (gameService.get(gameId)==null) {
             throw new NotFoundException("Not found Game with id = " + gameId);

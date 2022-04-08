@@ -30,6 +30,8 @@ public class GenreService {
         return repository.get(name);
     }
 
+    public List<Genre> getGenresByGameId(Integer gameId) { return repository.getGenresByGameId(gameId);}
+
     public List<Genre> getAll() {
         return repository.getAll();
     }

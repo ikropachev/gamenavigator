@@ -29,6 +29,10 @@ public class DataJpaGenreRepository {
         return crudGenreRepository.findByName(name);
     }
 
+    public List<Genre> getGenresByGameId(Integer gameId) {
+        return crudGenreRepository.findGenresByGameId(gameId);
+    }
+
     public List<Genre> getAll() {
         return crudGenreRepository.findAll();
     }
