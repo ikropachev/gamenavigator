@@ -8,12 +8,11 @@ Web api for interacting with a database that stores data about video games.
 * Information about the game: name, developer studio, several genres that the game corresponds to
 * TDD
 
-Tech stack: Maven, Spring MVC, Spring Security, Spring Data JPA, REST (Jackson), JDK17,
-Stream API, HSQLDB (in memory), JUnit5, Swagger (API)
+Tech stack: Maven, Spring MVC, Spring Security, Spring Data JPA, REST (Jackson), JDK17, <br>
+Stream API, HSQLDB (in memory),  JUnit5, Swagger (API)
 
 Login information:
+* admin@gmail.com:admin - sign in like admin
+* user@gmail.com:user - sign in like regular user
 
-admin@gmail.com:admin - sign in like admin
-user@gmail.com:user - sign in like regular user
-
-Swagger REST API
+[Swagger REST API](http://localhost:8080/gamenavigator_war_exploded/swagger-ui.html)
