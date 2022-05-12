@@ -17,4 +17,4 @@ Login information:
 * admin@gmail.com:admin - sign in like admin
 * user@gmail.com:user - sign in like regular user
 
-[Swagger REST API](http://localhost:8080/gamenavigator_war_exploded/swagger-ui.html)
+[Swagger REST API](http://localhost:8080/swagger-ui.html)
