@@ -14,14 +14,18 @@ import java.util.List;
 public interface CrudGameRepository extends JpaRepository<Game, Integer> {
     @Override
     @Transactional
-    //@EntityGraph(attributePaths = {"genres"}, type = EntityGraph.EntityGraphType.LOAD)
     Game save(Game game);
 
     @EntityGraph(attributePaths = {"genres"}, type = EntityGraph.EntityGraphType.LOAD)
+    @Query("SELECT g FROM Game g WHERE g.id=:id")
+    Game findById(@Param("id") int id);
+
+    //@EntityGraph(attributePaths = {"genres"}, type = EntityGraph.EntityGraphType.LOAD)
     @Query("SELECT g FROM Game g ORDER BY g.name")
     List<Game> findAll();
 
     //https://www.codejava.net/frameworks/spring/jpa-join-query-for-like-search-examples
+    //@EntityGraph(attributePaths = {"genres"}, type = EntityGraph.EntityGraphType.LOAD)
     @Query("SELECT g FROM Game g JOIN g.genres ge WHERE ge.id =:genreId")
     List<Game> findAllByGenreId(@Param("genreId") Integer genreId);
 

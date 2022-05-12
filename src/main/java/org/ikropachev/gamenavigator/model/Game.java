@@ -21,7 +21,7 @@ public class Game extends AbstractNamedEntity {
     protected String developer;
 
     //https://stackoverflow.com/questions/13370221/persistentobjectexception-detached-entity-passed-to-persist-thrown-by-jpa-and-h
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {
             //CascadeType.PERSIST,
             CascadeType.MERGE})
     @JoinTable(name = "game_x_genres",

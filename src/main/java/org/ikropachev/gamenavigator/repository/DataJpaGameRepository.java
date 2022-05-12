@@ -22,7 +22,7 @@ public class DataJpaGameRepository {
     }
 
     public Game get(int id) {
-        return crudGameRepository.findById(id).orElse(null);
+        return crudGameRepository.findById(id);
     }
 
     public List<Game> getAll() {
