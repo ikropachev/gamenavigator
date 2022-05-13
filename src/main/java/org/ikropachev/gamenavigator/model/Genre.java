@@ -1,6 +1,7 @@
 package org.ikropachev.gamenavigator.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 import java.util.List;
@@ -15,6 +16,7 @@ public class Genre extends AbstractNamedEntity {
             CascadeType.MERGE
     }, mappedBy = "genres")
     @JsonIgnore
+    @ApiModelProperty(hidden = true, readOnly = true)
     private List<Game> games;
 
     public Genre() {

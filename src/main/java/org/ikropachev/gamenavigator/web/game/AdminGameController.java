@@ -59,7 +59,7 @@ public class AdminGameController extends AbstractGameController {
     @GetMapping(value = "/by-genre-id")
     @ApiOperation(value = "View a list of all games by genre")
     public List<Game> getAllByGenreId(@Nullable @RequestParam(value = "genreId")
-                                   @ApiParam(example = GENRE_ID_STR, required = false) Integer genreId) {
+                                      @ApiParam(example = GENRE_ID_STR, required = false) Integer genreId) {
         log.info("get all games by genre {}", genreId);
         return super.getAllByGenreId(genreId);
     }
@@ -67,7 +67,7 @@ public class AdminGameController extends AbstractGameController {
     @GetMapping(value = "/by-genre-name")
     @ApiOperation(value = "View a list of all games by name of genre")
     public List<Game> getAllByGenreName(@Nullable @RequestParam(value = "genre-name")
-                                      @ApiParam(example = GENRE_NAME, required = false) String genreName) {
+                                        @ApiParam(example = GENRE_NAME, required = false) String genreName) {
         log.info("get all games by name of genre {}", genreName);
         Genre genre = genreService.get(genreName);
         return super.getAllByGenreId(genre.getId());

@@ -21,6 +21,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
+import static org.ikropachev.gamenavigator.web.game.AbstractGameController.GAME_ID_STR;
 import static org.slf4j.LoggerFactory.getLogger;
 
 @RestController
@@ -50,7 +51,9 @@ public class AdminGenreController {
     }
 
     @PostMapping("/games/{gameId}/genres")
-    public ResponseEntity<Genre> addGenre(@PathVariable(value = "gameId") Integer gameId, @RequestBody Genre genreRequest) {
+    public ResponseEntity<Genre> addGenre(@PathVariable(value = "gameId")
+                                          @ApiParam(example = GAME_ID_STR, required = true)
+                                          Integer gameId, @RequestBody Genre genreRequest) {
         Integer genreId = genreRequest.getId();
         Game game = gameService.get(gameId);
         Genre genre = service.get(genreId);
@@ -74,8 +77,10 @@ public class AdminGenreController {
     }
 
     @GetMapping("/games/{gameId}/genres")
-    public ResponseEntity<List<Genre>> getAllGenresByGameId(@PathVariable(value = "gameId") Integer gameId) {
-        if (gameService.get(gameId)==null) {
+    public ResponseEntity<List<Genre>> getAllGenresByGameId(@PathVariable(value = "gameId")
+                                                            @ApiParam(example = GAME_ID_STR, required = true)
+                                                            Integer gameId) {
+        if (gameService.get(gameId) == null) {
             throw new NotFoundException("Not found Game with id = " + gameId);
         }
         List<Genre> genres = service.getGenresByGameId(gameId);
