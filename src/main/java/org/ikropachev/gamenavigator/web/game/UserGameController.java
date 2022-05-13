@@ -36,7 +36,7 @@ public class UserGameController extends AbstractGameController {
     @GetMapping(value = "/by-genre-name")
     @ApiOperation(value = "View a list of all games by name of genre")
     public List<Game> getAllByGenreName(@Nullable @RequestParam(value = "genre-name")
-                                    @ApiParam(example = GENRE_NAME, required = false) String genreName) {
+                                        @ApiParam(example = GENRE_NAME, required = false) String genreName) {
         log.info("get all games by name of genre {}", genreName);
         Genre genre = genreService.get(genreName);
         return super.getAllByGenreId(genre.getId());

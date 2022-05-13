@@ -36,10 +36,4 @@ public class DataJpaGameRepository {
     public boolean delete(int id) {
         return crudGameRepository.delete(id) != 0;
     }
-
-    /*
-    public List<Game> getAllByGenre(Genre genre) {
-        return crudGameRepository.findAllByGenre(genre);
-    }
-     */
 }

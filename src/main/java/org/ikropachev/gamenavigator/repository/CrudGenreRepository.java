@@ -1,6 +1,5 @@
 package org.ikropachev.gamenavigator.repository;
 
-import org.ikropachev.gamenavigator.model.Game;
 import org.ikropachev.gamenavigator.model.Genre;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -22,7 +21,6 @@ public interface CrudGenreRepository extends JpaRepository<Genre, Integer> {
     @Query("SELECT g FROM Genre g JOIN g.games ga WHERE ga.id =:gameId")
     List<Genre> findGenresByGameId(@Param("gameId") Integer gameId);
 
-    //@EntityGraph(attributePaths = {"games"}, type = EntityGraph.EntityGraphType.LOAD)
     @Query("SELECT g FROM Genre g ORDER BY g.name")
     List<Genre> findAll();
 
