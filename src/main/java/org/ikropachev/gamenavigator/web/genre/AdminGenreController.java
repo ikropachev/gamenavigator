@@ -52,8 +52,8 @@ public class AdminGenreController {
 
     @PostMapping("/games/{gameId}/genres")
     public ResponseEntity<Genre> addGenre(@PathVariable(value = "gameId")
-                                          @ApiParam(example = GAME_ID_STR, required = true)
-                                          Integer gameId, @RequestBody Genre genreRequest) {
+                                          @ApiParam(example = GAME_ID_STR, required = true) Integer gameId,
+                                          @RequestBody Genre genreRequest) {
         Integer genreId = genreRequest.getId();
         Game game = gameService.get(gameId);
         Genre genre = service.get(genreId);
