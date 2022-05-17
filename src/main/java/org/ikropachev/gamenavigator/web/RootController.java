@@ -14,6 +14,12 @@ public class RootController {
     @GetMapping("/login")
     public String login() {
         log.info("login");
-        return "redirect:swagger-ui.html";
+        return "login";
+    }
+
+    @GetMapping("/")
+    public String root() {
+        log.info("root");
+        return "redirect:login";
     }
 }
