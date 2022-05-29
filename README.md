@@ -1,5 +1,7 @@
 # gamenavigator
 
+(Frontend development in progress)
+
 Web api for interacting with a database that stores data about video games.
 
 * 2 types of users: admin and regular users
