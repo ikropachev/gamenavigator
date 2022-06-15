@@ -301,6 +301,17 @@
             <version>1.8.2</version>
             <scope>test</scope>
         </dependency>
+        <!-- CSV -->
+        <dependency>
+            <groupId>com.opencsv</groupId>
+            <artifactId>opencsv</artifactId>
+            <version>5.0</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.4</version>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>

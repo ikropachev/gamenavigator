@@ -1,5 +1,6 @@
 package org.ikropachev.gamenavigator.web.game;
 
+import com.opencsv.CSVReader;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -11,11 +12,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
+import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.ikropachev.gamenavigator.web.genre.AdminGenreController.GENRE_ID_STR;
@@ -89,5 +98,42 @@ public class AdminGameController extends AbstractGameController {
     public void delete(@PathVariable @ApiParam(example = GAME_ID_STR, required = true) int id) {
         log.info("delete game with id {}", id);
         service.delete(id);
+    }
+
+    @PostMapping("/upload-csv-file")
+    public String uploadCSVFile(@RequestParam("file") MultipartFile file, Model model) throws IOException {
+
+        // validate file
+        if (file.isEmpty()) {
+            model.addAttribute("message", "Please select a CSV file to upload.");
+            model.addAttribute("status", false);
+        } else {
+
+            File convFile = new File(file.getOriginalFilename());
+            FileOutputStream fos = new FileOutputStream(convFile);
+            fos.write(file.getBytes());
+            fos.close();
+
+            List<List<String>> records = new ArrayList<List<String>>();
+            try (CSVReader csvReader = new CSVReader(new FileReader(convFile));) {
+                String[] values = null;
+                while ((values = csvReader.readNext()) != null) {
+                    records.add(Arrays.asList(values));
+                }
+                int a;
+                for (a = 0; a < records.size(); ++a) {
+                    Game game = new Game();
+                    game.setName(records.get(a).get(0));
+                    game.setDeveloper(records.get(a).get(1));
+                    service.create(game);
+                }
+
+            } catch (Exception ex) {
+                model.addAttribute("message", "An error occurred while processing the CSV file.");
+                model.addAttribute("status", false);
+            }
+        }
+
+        return "file-upload-status";
     }
 }

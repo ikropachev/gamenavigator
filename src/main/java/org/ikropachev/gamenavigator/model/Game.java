@@ -1,6 +1,8 @@
 package org.ikropachev.gamenavigator.model;
 
+import com.opencsv.bean.CsvBindByName;
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -18,6 +20,7 @@ public class Game extends AbstractNamedEntity {
     @Size(min = 2, max = 100)
     @Column(name = "developer", nullable = false)
     @ApiModelProperty(example = "developer")
+    //@CsvBindByName
     protected String developer;
 
     //https://stackoverflow.com/questions/13370221/persistentobjectexception-detached-entity-passed-to-persist-thrown-by-jpa-and-h

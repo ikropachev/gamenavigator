@@ -1,5 +1,6 @@
 package org.ikropachev.gamenavigator.model;
 
+import com.opencsv.bean.CsvBindByName;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.Access;
@@ -17,6 +18,7 @@ public abstract class AbstractNamedEntity extends AbstractBaseEntity {
     @Size(min = 2, max = 100)
     @Column(name = "name", nullable = false)
     @ApiModelProperty(example = "name")
+    //@CsvBindByName
     protected String name;
 
     protected AbstractNamedEntity() {
