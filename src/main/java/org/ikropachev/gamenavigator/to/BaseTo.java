@@ -7,7 +7,6 @@ public abstract class BaseTo implements HasId {
     @ApiModelProperty(readOnly = true)
     protected Integer id;
 
-
     public BaseTo() {
     }
 
